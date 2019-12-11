@@ -1,8 +1,8 @@
 
-
+localStorage.clear();
 var times=document.querySelectorAll("#time")
 var inputBox=document.querySelectorAll(".form-control");
-//var saveButton=document.querySelectorAll("#btn");
+
 var d = new Date();
 var currentDate=d.toString();
 var currentTime=currentDate.slice(15,18);
@@ -15,20 +15,19 @@ for(var i=0; i<localStorage.length; i++){
         var text=localStorage.getItem(key);
         var index=key.slice(key.indexOf("_")+1);
         var idx=parseInt(index);
-        console.log("index: "+idx);
-        console.log("text: "+text);
         inputBox[idx].textContent=text;
     }
 }
-
+if(currentTime>=9){
+    currentTime=currentTime-9;
+}else{
+    currentTime=100;
+}
 
 var current=10;
 for(var i=0; i<times.length; i++){
-    // if(currentTime>12){
-    //     currentTime=currentTime-12;
-    // }
-
-if(times[i].innerHTML.startsWith(parseInt("12"))){
+if( currentTime<times.length){
+if(times[i].innerHTML==times[currentTime].innerHTML){
  inputBox[i].style.background="tomato";
  current=i;
 }else if(i>current){
@@ -38,7 +37,10 @@ else{
 inputBox[i].style.background="#B0B0B0";
 }
 }
-
+else{
+    inputBox[i].style.background="#B0B0B0";
+  }
+}
 
 
 $('.btn').on("click",function(){
@@ -48,12 +50,6 @@ $('.btn').on("click",function(){
    localStorage.setItem("calendar_"+idx,text);
 })
 
-
-// for(var i=0; i<saveButton.length; i++){
-//     saveButton[i].addEventListener("click",function(){
-//         localStorage.setItem("calendar_"+times[i].val(),inputBox[i]);
-//     })
-// }
 
 
 
